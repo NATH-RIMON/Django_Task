@@ -43,20 +43,23 @@
     <link rel="stylesheet" href="{% static 'store/css/plugins/magnific-popup/magnific-popup.css' %}">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/plugins/nouislider/nouislider.css' %}">
     <link rel="stylesheet" href="{% static 'store/css/skins/skin-demo-26.css' %}">
     <link rel="stylesheet" href="{% static 'store/css/demos/demo-26.css' %}">
+        
+    {% block head %}
+    {% endblock head %}
 </head>
 
 <body>
     <div class="page-wrapper">
         {% include 'store/includes/Navbar.html' %}
         <!-- End .header -->
-        
+
         {% block content %}
             
         {% endblock content %}
             
-
 
         {% include 'store/includes/footer.html' %}
         <!-- End .footer -->
@@ -216,7 +219,31 @@
         </div>
         <!-- End .modal-dialog -->
     </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+    <script>
     
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+            {% for message in messages %}
+            Toast.fire({
+            icon: '{{ message.tags }}',
+            title: '{{ message }}'
+            })
+            {% endfor %}
+        
+    </script>
+    {% endif %}
 
     <!-- Plugins JS File -->
     <script src="{% static 'store/js/jquery.min.js' %}"></script>
@@ -225,12 +252,15 @@
     <script src="{% static 'store/js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'store/js/superfish.min.js' %}"></script>
     <script src="{% static 'store/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'store/js/jquery.elevateZoom.min.js' %}"></script>
     <script src="{% static 'store/js/bootstrap-input-spinner.js' %}"></script>
     <script src="{% static 'store/js/jquery.plugin.min.js' %}"></script>
     <script src="{% static 'store/js/jquery.countdown.min.js' %}"></script>
     <script src="{% static 'store/js/jquery.magnific-popup.min.js' %}"></script>
     <!-- Main JS File -->
+
     <script src="{% static 'store/js/main.js' %}"></script>
+
 </body>
 
 
